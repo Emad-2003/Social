@@ -1,9 +1,34 @@
-const socket = io()
+document.getElementById("profileForm").addEventListener("submit", function(event) {
+  event.preventDefault();
 
+  var name = document.getElementById("name").value;
+  var profilePic = document.getElementById("profilePic").files[0];
+
+  var reader = new FileReader();
+  reader.onloadend = function() {
+    if (name){
+      document.getElementById("nameInput").innerHTML = name;
+      nameInput= name;
+    }
+    if (profilePic){  
+      document.getElementById("pfp").style.backgroundImage = "url('" + 
+      reader.result + "')";
+      document.getElementById('icon').style.display='none'
+    }
+      document.getElementById("frontPage").style.display = "none";
+      document.getElementById("backPage").style.display = "block";
+      document.getElementById("heading").style.display = "none";
+  };
+  if (profilePic) {
+      reader.readAsDataURL(profilePic);
+  }
+});
+
+const socket = io()
 const clientsTotal = document.getElementById('client-total')
 
 const messageContainer = document.getElementById('message-container')
-const nameInput = document.getElementById('name-input')
+var  nameInput = document.getElementById('name-input')
 const messageForm = document.getElementById('message-form')
 const messageInput = document.getElementById('message-input')
 
@@ -14,15 +39,16 @@ messageForm.addEventListener('submit', (e) => {
   sendMessage()
 })
 
+//when socket is on , displays total clients 
 socket.on('clients-total', (data) => {
-  clientsTotal.innerText = `Total Clients: ${data}`
+  clientsTotal.innerText = `Total Users: ${data}`
 })
 
 function sendMessage() {
   if (messageInput.value === '') return
   // console.log(messageInput.value)
   const data = {
-    name: nameInput.value,
+    name: nameInput,
     message: messageInput.value,
     dateTime: new Date(),
   }
@@ -32,7 +58,6 @@ function sendMessage() {
 }
 
 socket.on('chat-message', (data) => {
-  // console.log(data)
   messageTone.play()
   addMessageToUI(false, data)
 })
@@ -41,13 +66,12 @@ function addMessageToUI(isOwnMessage, data) {
   clearFeedback()
   const element = `
       <li class="${isOwnMessage ? 'message-right' : 'message-left'}">
-          <p class="message">
-            ${data.message}
-            <span>${data.name} ● ${moment(data.dateTime).fromNow()}</span>
-          </p>
-        </li>
+        <p class="message">
+          ${data.message}
+          <span><b>${data.name}</b> ● ${moment(data.dateTime).fromNow()}</span>
+        </p>
+      </li>
         `
-
   messageContainer.innerHTML += element
   scrollToBottom()
 }

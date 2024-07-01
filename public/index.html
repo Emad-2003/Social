@@ -9,59 +9,74 @@
       integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="
       crossorigin="anonymous"
     />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css" />
-    <title>Chat app</title>
+    <title>Social</title>
   </head>
   <body>
-    <h1 class="title">iChat 💬</h1>
-    <div class="main">
-      <div class="name">
-        <span><i class="far fa-user"></i></span>
-        <input
-          type="text"
-          id="name-input"
-          class="name-input"
-          value="anonymous"
-          maxlength="20"
-        />
-      </div>
-
-      <ul class="message-container" id="message-container">
-        <!-- These li elements are only for reference, and therefore, they are commented out... -->
-        <!-- <li class="message-left">
-          <p class="message">
-            lorem impsun
-            <span>bluebird ● 26 July 10:40</span>
-          </p>
-        </li>
-
-        <li class="message-right">
-          <p class="message">
-            lorem impsun
-            <span>bluebird ● 26 July 10:40</span>
-          </p>
-        </li>
-
-        <li class="message-feedback">
-          <p class="feedback" id="feedback">✍️ killer is typing a message...</p>
-        </li> -->
-      </ul>
-
-      <form class="message-form" id="message-form">
-        <input
-          type="text"
-          name="message"
-          id="message-input"
-          class="message-input"
-        />
-        <div class="v-divider"></div>
-        <button type="submit" class="send-button">
-          send <span><i class="fas fa-paper-plane"></i></span>
-        </button>
-      </form>
+    <div id="heading">
+      <h1>Welcome to Social</h1>
+      
     </div>
-    <h3 class="clients-total" id="client-total">Total clients: 2</h3>
+    <div id="frontPage">
+      <form id="profileForm">
+          <label for="name">Name:</label>
+          <input type="text" id="name" name="name" required>
 
+          <label for="profilePic">Profile Picture:</label>
+          <input type="file" id="profilePic" name="profilePic" accept="image/*" required>
+
+          <input type="submit" value="Submit">
+      </form>
+  </div>
+    <div id="backPage">
+      <h1 class="title">Social</h1>
+      <div class="main">
+        <div class="name">
+          <span id="pfp"><i id="icon" class="far fa-user"></i></span>
+          <h3
+            id="nameInput"
+            class="name-input mt-3"
+          >Guest</h3>
+        </div>
+
+        <ul class="message-container" id="message-container">
+          <!-- These li elements are only for reference, and therefore, they are commented out... -->
+          <!-- <li class="message-left">
+            <p class="message">
+              lorem impsun
+              <span>bluebird ● 26 July 10:40</span>
+            </p>
+          </li>
+
+          <li class="message-right">
+            <p class="message">
+              lorem impsun
+              <span>bluebird ● 26 July 10:40</span>
+            </p>
+          </li>
+
+          <li class="message-feedback">
+            <p class="feedback" id="feedback">✍️ killer is typing a message...</p>
+          </li> -->
+        </ul>
+
+        <form class="message-form" id="message-form">
+          <input
+            type="text"
+            name="message"
+            id="message-input"
+            class="message-input"
+          />
+          <div class="v-divider"></div>
+          <button type="submit" class="send-button">
+            send <span><i class="fas fa-paper-plane"></i></span>
+          </button>
+        </form>
+      </div>
+      <h3 class="clients-total" id="client-total">Total Users: 2</h3>
+    </div>
+    
     <script src="/socket.io/socket.io.js"></script>
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.28.0/moment.min.js"
